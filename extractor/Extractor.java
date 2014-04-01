@@ -33,7 +33,8 @@ public class Extractor {
 
 	static void draw() {   
 		try {     
-			requete = new Query("#Cthulhu");     
+			requete = new Query("#ThanksTokioHotelForTheNewSong");     
+			requete.setCount(100);
 			resultat = twitter.search(requete);
 
 			tweets = (ArrayList<Status>) resultat.getTweets();
@@ -42,8 +43,9 @@ public class Extractor {
 				User u=(User) t.getUser();       
 				user=u.getName();      
 				pseudo = t.getUser().getScreenName();       
-				Date date = t.getCreatedAt();        
+				Date date = t.getCreatedAt();
 			}
+			System.out.println(tweets.size());
 		} catch (TwitterException e) {     
 				System.out.println("Couldn't connect: " + e);   
 		} 
