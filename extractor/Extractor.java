@@ -39,7 +39,13 @@ public class Extractor {
 	}
 	
 	public static void WritterCSV (ArrayList <Status> tweets) throws FileNotFoundException {
-		File csvFile = new File("exemple.csv"); 
+		File csvFile = new File("exemple.csv");
+		try {
+			csvFile.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (!csvFile.exists()) 
 			throw new FileNotFoundException("Le fichier n'existe pas"); 
 		else{
@@ -55,13 +61,13 @@ public class Extractor {
 
 	static void draw() throws FileNotFoundException {   
 		try {     
-			requete = new Query("#ThanksTokioHotelForTheNewSong");     
-			requete.setCount(100);
-			resultat = twitter.search(requete);
+			requete = new Query("#ThanksTokioHotelForTheNewSong");
 			
 			
 			for ( int p =0; p < 100; p++ )
-			{
+			{     
+				requete.setCount(100);
+				resultat = twitter.search(requete);
 				tweets = (ArrayList<Status>) resultat.getTweets();
 				for (int i = 0; i < tweets.size(); i++) {       
 					Status t=(Status) tweets.get(i);       
@@ -69,6 +75,7 @@ public class Extractor {
 					user=u.getName();      
 					pseudo = t.getUser().getScreenName();       
 					Date date = t.getCreatedAt();
+					System.out.println(i);
 				}
 				WritterCSV(tweets);
 			}
