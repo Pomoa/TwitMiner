@@ -1,18 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.StringWriter;
 import java.util.*;
 
 import twitter4j.conf.*; 
-import twitter4j.json.*; 
-import twitter4j.management.*; 
-import twitter4j.auth.*; 
-import twitter4j.api.*; 
-import twitter4j.util.*; 
 import twitter4j.*;
 
 
@@ -87,7 +80,7 @@ public class Extractor {
 	public static void main (String [] arg) throws FileNotFoundException{
 		long start = System.nanoTime();
 		exec();
-		System.out.println(System.nanoTime() - start);
+		System.out.println("Temps d'execution (en ns) : " + (System.nanoTime() - start));
 	}//main()
 
 }
