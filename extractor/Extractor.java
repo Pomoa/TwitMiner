@@ -17,29 +17,9 @@ import twitter4j.*;
 
 
 public class Extractor {
-
-	static TwitterFactory twitterFactory; 
-	static Twitter twitter; 
-	RequestToken requestToken; 
-	static Query requete; 
-	static QueryResult resultat;  
-	static ArrayList<Status> tweets = new ArrayList();  
-	static String msg;
-	static String user;
-	static String pseudo;
-	
-	static void setup() {   
-		ConfigurationBuilder cb = new ConfigurationBuilder();   
-		cb.setOAuthConsumerKey("n43KH8GH3lmFkElEZu9Ezg");   
-		cb.setOAuthConsumerSecret("msdUN8agMXem9fpS6rUm3aaWun7tFmpxNEKXobHJrE");   
-		cb.setOAuthAccessToken("1952255185-hIMKlhTciiwxjys9jBvCtX0cH99GWqquPVyAvoA");   
-		cb.setOAuthAccessTokenSecret("5RIn2tWgFSRk1w86MTHsnDxgGSkezt50iHbkBxJp10eNr");   
-		twitterFactory = new TwitterFactory(cb.build());   
-		twitter = twitterFactory.getInstance();  
-	}
 	
 	public static void WritterCSV (ArrayList <Status> tweets) throws FileNotFoundException {
-		File csvFile = new File("exemple.csv");
+		File csvFile = new File("Fic.csv");
 		try {
 			csvFile.delete();
 			csvFile.createNewFile();
@@ -49,7 +29,7 @@ public class Extractor {
 		if (!csvFile.exists()) 
 			throw new FileNotFoundException("Le fichier n'existe pas"); 
 		else {
-			PrintStream l_out = new PrintStream(new FileOutputStream("exemple.csv", true));
+			PrintStream l_out = new PrintStream(new FileOutputStream(csvFile, true));
 
 			for (int i = 0; i < tweets.size(); i++) { 
 				Status t = tweets.get(i);
@@ -68,14 +48,27 @@ public class Extractor {
 			l_out=null;
 			
 		}
-	}
+	}//writterCSV()
 
-	static void draw() throws FileNotFoundException {   
+	static void exec() throws FileNotFoundException {
+		//setup
+		Twitter twitter; 
+		Query requete; 
+		QueryResult resultat;  
+		ArrayList<Status> tweets = new ArrayList<Status>();
+		ConfigurationBuilder cb = new ConfigurationBuilder();   
+		cb.setOAuthConsumerKey("n43KH8GH3lmFkElEZu9Ezg");   
+		cb.setOAuthConsumerSecret("msdUN8agMXem9fpS6rUm3aaWun7tFmpxNEKXobHJrE");   
+		cb.setOAuthAccessToken("1952255185-hIMKlhTciiwxjys9jBvCtX0cH99GWqquPVyAvoA");   
+		cb.setOAuthAccessTokenSecret("5RIn2tWgFSRk1w86MTHsnDxgGSkezt50iHbkBxJp10eNr");   
+		TwitterFactory twitterFactory = new TwitterFactory(cb.build());
+		twitter = twitterFactory.getInstance();
+		//
 		try {     
-			requete = new Query("#GouvernementValls");
+			requete = new Query("Boutin");
 			
 			
-			for ( int p =0 ; p < 100 ; p++ )
+			for ( int p =0 ; p < 100 ; )
 			{
 				requete.setCount(100);
 				resultat = twitter.search(requete);
@@ -83,17 +76,18 @@ public class Extractor {
 				WritterCSV(tweets);
 				requete.setMaxId(tweets.get(tweets.size()-1).getId()-1);
 				
-				System.out.println("" + p + '%');
+				System.out.println(++p + "%");
 			}
 		} catch (TwitterException e) {     
 				System.out.println("Couldn't connect: " + e);   
 		}
-		System.out.print("Nombre de tweets : " + tweets.size());
-	}
+		System.out.println("Nombre de tweets : " + tweets.size());
+	}//exec()
 
 	public static void main (String [] arg) throws FileNotFoundException{
-		setup();
-		draw();
-	}
+		long start = System.nanoTime();
+		exec();
+		System.out.println(System.nanoTime() - start);
+	}//main()
 
 }
