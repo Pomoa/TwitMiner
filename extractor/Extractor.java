@@ -75,13 +75,9 @@ public class Extractor {
 					user=u.getName();      
 					pseudo = t.getUser().getScreenName();       
 					Date date = t.getCreatedAt();
-					System.out.println(i);
 				}
 				WritterCSV(tweets);
 			}
-			
-			
-			System.out.println(tweets.size());
 		} catch (TwitterException e) {     
 				System.out.println("Couldn't connect: " + e);   
 		} 
