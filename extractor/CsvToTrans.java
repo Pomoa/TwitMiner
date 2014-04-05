@@ -20,14 +20,13 @@ public class CsvToTrans {
 			e.printStackTrace();
 		}
 		PrintStream l_out = new PrintStream(new FileOutputStream(file, true));
-		InputStream ips=new FileInputStream("test.csv");
+		InputStream ips=new FileInputStream("Fic.csv");
 		InputStreamReader ipsr=new InputStreamReader(ips);
 		BufferedReader br=new BufferedReader(ipsr);
 		
 		String ligne = br.readLine();
 		for (; ligne != null ;) {
 			int i = 0;
-			System.out.println(i);
 			
 			for (int p = 0 ; p < 3 ; ) {
 				if(i>=ligne.length()) break;
