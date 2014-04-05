@@ -46,7 +46,6 @@ public class CsvToTrans {
 						if(i >= ligne.length()) break;
 					}
 					cpt++;
-					System.out.println("" + cpt + "=" + mot +"\n");
 					l_out.println("" + cpt + "=" + mot);
 					
 				}
