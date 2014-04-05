@@ -26,13 +26,19 @@ public class CsvToTrans {
 		
 		String ligne = br.readLine();
 		for (; ligne != null ;) {
-			
 			int i = 0;
+			System.out.println(i);
+			
 			for (int p = 0 ; p < 3 ; ) {
 				if(i>=ligne.length()) break;
 				if (ligne.charAt(i) == '"') {
 					p++;
 					i++;
+					if(i>=ligne.length()) break;
+					if (ligne.charAt(i) == ';') {
+						p=0;
+						i++;
+					}
 				} else {					
 					String mot = new String();
 					for ( ; ligne.charAt(i) !='"'; ) {
@@ -41,7 +47,7 @@ public class CsvToTrans {
 					}
 					cpt++;
 					System.out.println("" + cpt + "=" + mot +"\n");
-					l_out.println("" + cpt + "=" + mot +"\n");
+					l_out.println("" + cpt + "=" + mot);
 					
 				}
 			
