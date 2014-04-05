@@ -11,7 +11,7 @@ import twitter4j.*;
 
 public class Extractor {
 	
-	public static void WritterCSV (ArrayList <Status> tweets) throws FileNotFoundException {
+	public static void WriterCSV (ArrayList <Status> tweets) throws FileNotFoundException {
 		File csvFile = new File("Fic.csv");
 		try {
 			csvFile.delete();
@@ -66,7 +66,7 @@ public class Extractor {
 				requete.setCount(100);
 				resultat = twitter.search(requete);
 				tweets.addAll(resultat.getTweets());
-				WritterCSV(tweets);
+				WriterCSV(tweets);
 				requete.setMaxId(tweets.get(tweets.size()-1).getId()-1);
 				
 				System.out.println(++p + "%");
