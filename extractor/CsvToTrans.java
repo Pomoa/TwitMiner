@@ -20,11 +20,15 @@ public class CsvToTrans {
 			e.printStackTrace();
 		}
 		PrintStream l_out = new PrintStream(new FileOutputStream(file, true));
-		InputStream ips=new FileInputStream("Fic.csv");
+		InputStream ips=new FileInputStream("test.csv");
+		InputStream ips2=new FileInputStream("fichierTraduit.txt");
 		InputStreamReader ipsr=new InputStreamReader(ips);
+		InputStreamReader ipsr2=new InputStreamReader(ips2);
 		BufferedReader br=new BufferedReader(ipsr);
+
 		
 		String ligne = br.readLine();
+
 		for (; ligne != null ;) {
 			int i = 0;
 			
@@ -38,15 +42,34 @@ public class CsvToTrans {
 						p=0;
 						i++;
 					}
-				} else {					
+				} else {
 					String mot = new String();
 					for ( ; ligne.charAt(i) !='"'; ) {
 						mot += ligne.charAt(i++);
+						System.out.println(mot);
 						if(i >= ligne.length()) break;
 					}
-					cpt++;
-					l_out.println("" + cpt + "=" + mot);
-					
+					System.out.println(mot);
+					if ( cpt == 0) {
+						cpt++;
+						l_out.println("" + cpt + "=" + mot);
+					} else {
+						BufferedReader br2=new BufferedReader(ipsr2);
+						String test = br2.readLine();
+						System.out.println(mot);
+						for ( ; test !=null ; ) {
+							System.out.println(mot);
+							if (!test.contains(mot)) {
+								//System.out.println(test);
+								cpt++;
+								l_out.println("" + cpt + "=" + mot);
+								break;
+								
+							}
+						test = br2.readLine();
+						}
+						
+					}
 				}
 			
 			}
