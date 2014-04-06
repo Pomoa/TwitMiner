@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,13 +20,17 @@ public class CsvToTrans {
 			{
 				for (int p = 0 ; mot.length() > p ; p++, i++) {
 					if ( i == test.length()) break;
-					if ( test.charAt(i) != mot.charAt(p) )
+					if ( test.charAt(i) != mot.charAt(p) ) {
+						br2.close();
 						return false;
+					}
 				}
+				br2.close();
 				return true;
 				
 			}
 		}
+		br2.close();
 		return true;
 	}
 	
@@ -41,11 +44,8 @@ public class CsvToTrans {
 			e.printStackTrace();
 		}
 		PrintStream l_out = new PrintStream(new FileOutputStream(file, true));
-		InputStream ips=new FileInputStream("test.csv");
-		InputStream ips2=new FileInputStream("fichierTraduit.txt");
-		InputStreamReader ipsr=new InputStreamReader(ips);
-		InputStreamReader ipsr2=new InputStreamReader(ips2);
-		BufferedReader br=new BufferedReader(ipsr);
+		InputStreamReader ipsr2=new InputStreamReader(new FileInputStream("fichierTraduit.txt"));
+		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("test.csv")));
 
 		
 		String ligne = br.readLine();
