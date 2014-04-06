@@ -61,7 +61,7 @@ public class Extractor {
 			requete = new Query("Boutin");
 			
 			
-			for ( int p =0 ; p < 100 ; )
+			for ( int i =0 ; i < 100 ; )
 			{
 				requete.setCount(100);
 				resultat = twitter.search(requete);
@@ -69,7 +69,7 @@ public class Extractor {
 				WriterCSV(tweets);
 				requete.setMaxId(tweets.get(tweets.size()-1).getId()-1);
 				
-				System.out.println(++p + "%");
+				System.out.println(++i + "%");
 			}
 		} catch (TwitterException e) {     
 				System.out.println("Couldn't connect: " + e);   
